@@ -56,14 +56,14 @@
             <!--... for each choice in the question  choice_{{choice.id}}...-->
                 {% for choice in question.choice_set.all %}
                 <div class="form-check">
-                    {% if choice.id in selected %}
-                        {% if choice.is_correct == True %}
-                            <label style="color:#2ea94a;font-weight:bold">Correct answer: {{choice.content}}</label>
-                        {% else %}
-                            <label style="color:red;font-weight:bold">Wrong answer: {{choice.content}}</label>
-                        {% endif %}
+                    {% if choice.is_correct %}
+                    <p class = "card-text text-success">{{ choice.content }}</p>
+                    {% elif choice.is_correct and choice not in choices %}
+                            <p class="card-text text-warning">{{ choice.content}}</p>
+                        {% elif choice in choices %}
+                            <p class="card-text text-danger">{{ choice.content}}</p>
                     {% else %}
-                        <label>{{choice.content}}</label>
+                    <p class="card-text text">{{ choice.content}}</p>
                     {% endif %}
                 </div>
                 {% endfor %}
